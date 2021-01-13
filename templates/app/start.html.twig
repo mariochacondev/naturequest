@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block body %} 
+
+    {% for plantcourse in plantcourses %} 
+        <a href="{{ path('start_course') }}">{{ plantcourse.button }}{{ plantcourse.icon }}</a>
+    {% endfor %}
+
+{% endblock %}
