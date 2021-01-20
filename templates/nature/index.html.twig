@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Liste des plantes {% endblock %}
+
+{% block body %}
+
+    {% for plant in plants %}
+        <h2 class="#">{{ plant.name }}</h2>
+        <p class="test"> {{ plant.content }} </p>
+        <img class="img" src="{{ asset(plant.picture) }}">
+    {% endfor %}
+
+{% endblock %}
