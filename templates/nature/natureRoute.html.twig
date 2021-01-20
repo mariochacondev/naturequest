@@ -13,19 +13,16 @@
 
     <h1>Parcour Nature</h1>
  
-    {% for routeplant in routeplants %}
-
-        {# {{ routeplant.idPlant.name }} #}
-        {# <button class="#">{{ routeplant.content }}</button> #}
-
+    {% for plant in plants %}
+        {# <ul>{{plant.name }} #}
+            {% for routeplant in plant.routePlants %}
+                <button>{{ routeplant.content }}</button>
+            {% endfor %}
+        {# </ul> #}
+        {{plant.name }} 
+        {{plant.content }} 
+        <img src="{{plant.picture}}"/>
     {% endfor %}
-   
-
-        {# <p>{{ routeplant.idPlant.name }}</p>
-        <p>{{ routeplant.idPlant.content }}</p>
-        <img src="{{ routeplant.idPlant.picture }}" class="img" /> #}
-
-    
 {% endblock %}
 
 

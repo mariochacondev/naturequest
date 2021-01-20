@@ -29,13 +29,13 @@ class NatureController extends AbstractController
     /**
      * @Route("/nature/parcours/", name="nature_route")
      */
-    public function natureRoute(RoutePlant $RoutePlant): Response
+    public function natureRoute(): Response
     {
-        $repository = $this->getDoctrine()->getRepository(RoutePlant::class);
-        $routeplants = $repository->findBy([], ['idPlant' => 'ASC']);        
+        $repository = $this->getDoctrine()->getRepository(Plant::class);
+        $plants = $repository->findBy([], ['name' => 'ASC']);   
 
         return $this->render('nature/natureRoute.html.twig', [
-            'routeplants' => $routeplants,   
+            'plants' => $plants,  
         ]);
     }
 }
