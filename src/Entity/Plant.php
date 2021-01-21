@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PlantRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -46,6 +48,16 @@ class Plant
      * @ORM\Column(type="string", length=255)
      */
     private $image4;
+
+    /**
+     * @ORM\OneToMany(targetEntity=PlantCourse::class, mappedBy="plant")
+     */
+    private $plantCourses;
+
+    public function __construct()
+    {
+        $this->plantCourses = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -120,6 +132,41 @@ class Plant
     public function setImage4(string $image4): self
     {
         $this->image4 = $image4;
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return Collection|PlantCourse[]
+     */
+    public function getPlantCourses(): Collection
+    {
+        return $this->plantCourses;
+    }
+
+    public function addPlantCourse(PlantCourse $plantCourse): self
+    {
+        if (!$this->plantCourses->contains($plantCourse)) {
+            $this->plantCourses[] = $plantCourse;
+            $plantCourse->setPlant($this);
+        }
+
+        return $this;
+    }
+
+    public function removePlantCourse(PlantCourse $plantCourse): self
+    {
+        if ($this->plantCourses->removeElement($plantCourse)) {
+            // set the owning side to null (unless already changed)
+            if ($plantCourse->getPlant() === $this) {
+                $plantCourse->setPlant(null);
+            }
+        }
 
         return $this;
     }

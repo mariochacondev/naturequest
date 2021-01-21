@@ -28,10 +28,10 @@ class PlantCourse
     private $icon;
 
     /**
-     * @ORM\OneToOne(targetEntity=Plant::class, cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=Plant::class, inversedBy="plantCourses")
      */
     private $plant;
+
 
     public function getId(): ?int
     {
@@ -62,12 +62,17 @@ class PlantCourse
         return $this;
     }
 
+    public function __toString(): string
+    {
+        return $this->name;
+    }
+
     public function getPlant(): ?Plant
     {
         return $this->plant;
     }
 
-    public function setPlant(Plant $plant): self
+    public function setPlant(?Plant $plant): self
     {
         $this->plant = $plant;
 

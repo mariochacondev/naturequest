@@ -19,24 +19,34 @@ class AppController extends AbstractController
         ]);
     }
 
-    // #[Route('/parcours', name: 'start_course')]
-    // public function start(): Response
-    // {
-    //     return $this->render('app/start.html.twig', [
-    //         'controller_name' => 'Bienvenue',
-    //     ]);
-    // }
+    
+    #[Route("/parcours/{id}", name: "start_course")]
+    public function courseShow(int $id): Response
+    {
+        $plantcourse = $this->getDoctrine()
+            ->getRepository(PlantCourse::class)
+            ->find($id);
 
+        if (!$plantcourse) {
+            throw $this->createNotFoundException(
+                'No product found for id '.$id
+            );
+        }
+        return $this->render('app/course.html.twig', ['plantcourse' => $plantcourse]);
+    }
+
+    
      
-     #[Route("/parcours", name: "start_course")]
+    /*  #[Route("/parcours", name: "start_course")]
     public function courseShow(Request $request): Response
     {
         $repository = $this->getDoctrine()->getRepository(PlantCourse::class);
-        $plantcourses = $repository->findBy([], ['id' => 'ASC'],3);
+        $plantcourses = $repository->findBy([], ['plant' => 'ASC']);
+        
     
-        return $this->render('app/start.html.twig', [
+        return $this->render('app/course.html.twig', [
             'plantcourses' => $plantcourses
         ]);
-    }
+    } */
 
 }

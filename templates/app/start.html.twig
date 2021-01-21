@@ -1,9 +1,10 @@
-{% extends 'base.html.twig' %}
+{% extends 'app/index.html.twig' %}
+
+{% block title %}Hello AppController!{{ parent() }} {% endblock %}
 
 {% block body %} 
+    {{ parent() }}
 
-    {% for plantcourse in plantcourses %} 
-        <a href="{{ path('start_course') }}">{{ plantcourse.button }}{{ plantcourse.icon }}</a>
-    {% endfor %}
+    {% block content %}{% endblock %}
 
 {% endblock %}

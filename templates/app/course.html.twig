@@ -1,0 +1,21 @@
+{% extends 'app/start.html.twig' %}
+
+{% block title %}Hello AppController!{{ parent() }} {% endblock %}
+ 
+{% block content %}
+
+{# {% for plantcourse in plantcourse %} 
+    <p>{{ plantcourse.button }} {{ plantcourse.icon }}</p>
+{% endfor %}
+
+{% for plant in plantcourse %} 
+    <p>{{ plant.plant }}</p>
+{% endfor %} #}
+
+<p>{{ plantcourse.button }}</p>
+<div>
+    <p>{{ plantcourse.plant }}</p>
+</div>
+
+
+{% endblock %}
