@@ -6,8 +6,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use App\Entity\Plant;
-use App\Entity\PlantCourse;
+use App\Entity\FinalSheetPlant;
+use App\Entity\CoursePlant;
+use App\Entity\ButtonPlant;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
 
 class AppController extends AbstractController
 {
@@ -21,18 +25,29 @@ class AppController extends AbstractController
 
     
     #[Route("/parcours/{id}", name: "start_course")]
-    public function courseShow(int $id): Response
+    public function coursePlantShow(int $id): Response
     {
-        $plantcourse = $this->getDoctrine()
-            ->getRepository(PlantCourse::class)
+        $courseplant = $this->getDoctrine()
+            ->getRepository(CoursePlant::class)
             ->find($id);
 
-        if (!$plantcourse) {
+        if (!$courseplant) {
             throw $this->createNotFoundException(
                 'No product found for id '.$id
             );
         }
-        return $this->render('app/course.html.twig', ['plantcourse' => $plantcourse]);
+            $serializer = new Serializer(array(new GetSetMethodNormalizer()), array('json' => new 
+            JsonEncoder()));
+            $json = $serializer->serialize($courseplant, 'json', [
+            'circular_reference_handler' => function ($json) {
+            return $json->getId();
+    }
+]);
+            $response = new Response($json);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        
     }
 
     
