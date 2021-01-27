@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\FinalSheetPlant;
+use App\Entity\FinalSheet;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -12,15 +12,15 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method FinalSheet[]    findAll()
  * @method FinalSheet[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class FinalSheetPlantRepository extends ServiceEntityRepository
+class FinalSheetRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, FinalSheetPlant::class);
+        parent::__construct($registry, FinalSheet::class);
     }
 
     // /**
-    //  * @return FinalSheetPlant[] Returns an array of FinalSheet objects
+    //  * @return FinalSheet[] Returns an array of FinalSheet objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class FinalSheetPlantRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?FinalSheetPlant
+    public function findOneBySomeField($value): ?FinalSheet
     {
         return $this->createQueryBuilder('f')
             ->andWhere('f.exampleField = :val')

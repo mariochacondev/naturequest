@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use App\Entity\FinalSheetPlant;
+use App\Entity\FinalSheet;
 use App\Entity\CoursePlant;
 use App\Entity\ButtonPlant;
 use Symfony\Component\Serializer\Serializer;
@@ -50,18 +50,30 @@ class AppController extends AbstractController
         
     }
 
-    
-     
-    /*  #[Route("/parcours", name: "start_course")]
-    public function courseShow(Request $request): Response
+    #[Route("/fiche/{id}", name: "finalsheet")]
+    public function FinalSheetShow(int $id): Response
     {
-        $repository = $this->getDoctrine()->getRepository(PlantCourse::class);
-        $plantcourses = $repository->findBy([], ['plant' => 'ASC']);
+        $finalsheet = $this->getDoctrine()
+            ->getRepository(FinalSheet::class)
+            ->find($id);
+
+        if (!$finalsheet) {
+            throw $this->createNotFoundException(
+                'No product found for id '.$id
+            );
+        }
+            $serializer = new Serializer(array(new GetSetMethodNormalizer()), array('json' => new 
+            JsonEncoder()));
+            $json = $serializer->serialize($finalsheet, 'json', [
+            'circular_reference_handler' => function ($json) {
+            return $json->getId();
+    }
+]);
+            $response = new Response($json);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
         
-    
-        return $this->render('app/course.html.twig', [
-            'plantcourses' => $plantcourses
-        ]);
-    } */
+    }
 
 }

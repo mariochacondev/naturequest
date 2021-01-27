@@ -2,14 +2,14 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\FinalSheetPlant;
+use App\Entity\FinalSheet;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
-class FinalSheetPlantCrudController extends AbstractCrudController
+class FinalSheetCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return FinalSheetPlant::class;
+        return FinalSheet::class;
     }
 
     /*

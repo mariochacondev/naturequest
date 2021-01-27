@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\FinalSheetPlantRepository;
+use App\Repository\FinalSheetRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=FinalSheetRepository::class)
  */
-class FinalSheetPlant
+class FinalSheet
 {
     /**
      * @ORM\Id
@@ -30,22 +30,27 @@ class FinalSheetPlant
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $treePicture;
+    private $picture1;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $leafPicture;
+    private $picture2;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $barkPicture;
+    private $picture3;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $seedPicture;
+    private $picture4;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $type;
 
     public function getId(): ?int
     {
@@ -76,50 +81,62 @@ class FinalSheetPlant
         return $this;
     }
 
-    public function getTreePicture(): ?string
+    public function getPicture1(): ?string
     {
-        return $this->treePicture;
+        return $this->picture1;
     }
 
-    public function setTreePicture(string $treePicture): self
+    public function setPicture1(string $picture1): self
     {
-        $this->treePicture = $treePicture;
+        $this->picture1 = $picture1;
 
         return $this;
     }
 
-    public function getLeafPicture(): ?string
+    public function getPicture2(): ?string
     {
-        return $this->leafPicture;
+        return $this->picture2;
     }
 
-    public function setLeafPicture(string $leafPicture): self
+    public function setPicture2(string $picture2): self
     {
-        $this->leafPicture = $leafPicture;
+        $this->picture2 = $picture2;
 
         return $this;
     }
 
-    public function getBarkPicture(): ?string
+    public function getPicture3(): ?string
     {
-        return $this->barkPicture;
+        return $this->picture3;
     }
 
-    public function setBarkPicture(string $barkPicture): self
+    public function setPicture3(string $picture3): self
     {
-        $this->barkPicture = $barkPicture;
+        $this->picture3 = $picture3;
 
         return $this;
     }
 
-    public function getSeedPicture(): ?string
+    public function getPicture4(): ?string
     {
-        return $this->seedPicture;
+        return $this->picture4;
     }
 
-    public function setSeedPicture(string $seedPicture): self
+    public function setPicture4(string $picture4): self
     {
-        $this->seedPicture = $seedPicture;
+        $this->picture4 = $picture4;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }

@@ -8,7 +8,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
-use App\Entity\FinalSheetPlant;
+use App\Entity\FinalSheet;
 use App\Entity\CoursePlan;
 use App\Entity\ButtonPlant;
 
@@ -35,7 +35,7 @@ class AdminController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Plant', 'fas fa-list', FinalSheetPlant::class);
+        yield MenuItem::linkToCrud('Plant', 'fas fa-list', FinalSheet::class);
         yield MenuItem::linkToCrud('Button Plant', 'fas fa-list', ButtonPlant::class);
         
     }

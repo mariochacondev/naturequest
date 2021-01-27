@@ -28,9 +28,9 @@ class ButtonPlant
     private $img;
 
     /**
-     * @ORM\OneToOne(targetEntity=FinalSheetPlant::class, cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=FinalSheet::class, cascade={"persist", "remove"})
      */
-    private $finalSheetPlantId;
+    private $finalSheetId;
 
     /**
      * @ORM\OneToOne(targetEntity=CoursePlant::class, cascade={"persist", "remove"})
@@ -77,14 +77,14 @@ class ButtonPlant
         return $this;
     }
 
-    public function getFinalSheetPlantId(): ?FinalSheetPlant
+    public function getFinalSheetId(): ?FinalSheet
     {
-        return $this->finalSheetPlantId;
+        return $this->finalSheetId;
     }
 
-    public function setFinalSheetPlantId(?FinalSheetPlant $finalSheetPlantId): self
+    public function setFinalSheetId(?FinalSheet $finalSheetId): self
     {
-        $this->finalSheetPlantId = $finalSheetPlantId;
+        $this->finalSheetId = $finalSheetId;
 
         return $this;
     }
