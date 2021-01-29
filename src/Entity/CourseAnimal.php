@@ -24,6 +24,16 @@ class CourseAnimal
      */
     private $title;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ButtonAnimal::class, mappedBy="stepId")
+     */
+    private $buttonAnimals;
+
+    public function __construct()
+    {
+        $this->buttonAnimals = new ArrayCollection();
+    }
+
 
 
     public function getId(): ?int
@@ -43,7 +53,39 @@ class CourseAnimal
         return $this;
     }
 
+    /**
+     * @return Collection|ButtonAnimal[]
+     */
+    public function getButtonAnimals(): Collection
+    {
+        return $this->buttonAnimals;
+    }
 
+    public function addButtonAnimal(ButtonAnimal $buttonAnimal): self
+    {
+        if (!$this->buttonAnimals->contains($buttonAnimal)) {
+            $this->buttonAnimals[] = $buttonAnimal;
+            $buttonAnimal->setStepId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeButtonAnimal(ButtonAnimal $buttonAnimal): self
+    {
+        if ($this->buttonAnimals->removeElement($buttonAnimal)) {
+            // set the owning side to null (unless already changed)
+            if ($buttonAnimal->getStepId() === $this) {
+                $buttonAnimal->setStepId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString() { 
+        return $this->title; 
+    }
 
 
 }

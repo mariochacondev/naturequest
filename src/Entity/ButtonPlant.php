@@ -111,9 +111,5 @@ class ButtonPlant
         return $this;
     }
 
-    // public function __toString() { 
-    //     return $this->stepId; 
-    // }
-
 
 }

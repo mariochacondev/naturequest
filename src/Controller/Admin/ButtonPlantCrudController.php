@@ -21,7 +21,6 @@ class ButtonPlantCrudController extends AbstractCrudController
     {
         return [
             TextField::new('content'),
-            // TextEditorField::new('stepId'),
             UrlField::new('img'),
             AssociationField::new('stepId'),
             AssociationField::new('nextStepId'),

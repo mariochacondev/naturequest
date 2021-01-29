@@ -13,6 +13,7 @@ use App\Entity\CoursePlan;
 use App\Entity\ButtonPlant;
 use App\Entity\CourseAnimal;
 use App\Entity\ButtonAnimal;
+use App\Entity\Geolocalisation;
 
 class AdminController extends AbstractDashboardController
 {
@@ -36,11 +37,12 @@ class AdminController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linktoDashboard('Page', 'fa fa-list');
-        yield MenuItem::linkToCrud('Fiche Animale ou Plante', 'fas fa-list', FinalSheet::class);
+        yield MenuItem::linktoDashboard('Chemin/Page Plant', 'fa fa-list');
+        yield MenuItem::linkToCrud('Chemin/Page Animal', 'fas fa-list', CourseAnimal::class);
         yield MenuItem::linkToCrud('Bouton pour les Plantes', 'fas fa-list', ButtonPlant::class);
         yield MenuItem::linkToCrud('Bouton pour les Animaux', 'fas fa-list', ButtonAnimal::class);
-        yield MenuItem::linkToCrud('Chemin Animal', 'fas fa-list', CourseAnimal::class);
+        yield MenuItem::linkToCrud('Fiche Final Animale/Plante', 'fas fa-list', FinalSheet::class);
+        yield MenuItem::linkToCrud('NatureQuest GPS', 'fas fa-list', Geolocalisation::class);
         
     }
 }

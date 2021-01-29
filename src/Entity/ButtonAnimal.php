@@ -25,9 +25,25 @@ class ButtonAnimal
     private $content;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $img;
+
+    /**
      * @ORM\OneToOne(targetEntity=FinalSheet::class, cascade={"persist", "remove"})
      */
     private $finalSheetId;
+
+    /**
+     * @ORM\OneToOne(targetEntity=CourseAnimal::class, cascade={"persist", "remove"})
+     */
+    private $nextStepId;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=CourseAnimal::class, inversedBy="buttonAnimals")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $stepId;
 
    
 
@@ -48,6 +64,18 @@ class ButtonAnimal
         return $this;
     }
 
+    public function getImg(): ?string
+    {
+        return $this->img;
+    }
+
+    public function setImg(string $img): self
+    {
+        $this->img = $img;
+
+        return $this;
+    }
+
     public function getFinalSheetId(): ?FinalSheet
     {
         return $this->finalSheetId;
@@ -56,6 +84,30 @@ class ButtonAnimal
     public function setFinalSheetId(?FinalSheet $finalSheetId): self
     {
         $this->finalSheetId = $finalSheetId;
+
+        return $this;
+    }
+
+    public function getNextStepId(): ?CourseAnimal
+    {
+        return $this->nextStepId;
+    }
+
+    public function setNextStepId(?CourseAnimal $nextStepId): self
+    {
+        $this->nextStepId = $nextStepId;
+
+        return $this;
+    }
+
+    public function getStepId(): ?CourseAnimal
+    {
+        return $this->stepId;
+    }
+
+    public function setStepId(?CourseAnimal $stepId): self
+    {
+        $this->stepId = $stepId;
 
         return $this;
     }
