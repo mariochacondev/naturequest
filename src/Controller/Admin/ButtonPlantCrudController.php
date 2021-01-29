@@ -4,6 +4,10 @@ namespace App\Controller\Admin;
 
 use App\Entity\ButtonPlant;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;
 
 class ButtonPlantCrudController extends AbstractCrudController
 {
@@ -12,14 +16,17 @@ class ButtonPlantCrudController extends AbstractCrudController
         return ButtonPlant::class;
     }
 
-    /*
+    
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
+            TextField::new('content'),
+            // TextEditorField::new('stepId'),
+            UrlField::new('img'),
+            AssociationField::new('stepId'),
+            AssociationField::new('nextStepId'),
+            AssociationField::new('finalSheetId'),
         ];
     }
-    */
+   
 }

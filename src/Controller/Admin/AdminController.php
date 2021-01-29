@@ -11,7 +11,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use App\Entity\FinalSheet;
 use App\Entity\CoursePlan;
 use App\Entity\ButtonPlant;
-
+use App\Entity\CourseAnimal;
+use App\Entity\ButtonAnimal;
 
 class AdminController extends AbstractDashboardController
 {
@@ -25,6 +26,7 @@ class AdminController extends AbstractDashboardController
         return $this->redirect($routeBuilder->setController(CoursePlantCrudController::class)->generateUrl());
         // return parent::index();
     }
+    
 
     public function configureDashboard(): Dashboard
     {
@@ -34,9 +36,11 @@ class AdminController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Plant', 'fas fa-list', FinalSheet::class);
-        yield MenuItem::linkToCrud('Button Plant', 'fas fa-list', ButtonPlant::class);
+        yield MenuItem::linktoDashboard('Page', 'fa fa-list');
+        yield MenuItem::linkToCrud('Fiche Animale ou Plante', 'fas fa-list', FinalSheet::class);
+        yield MenuItem::linkToCrud('Bouton pour les Plantes', 'fas fa-list', ButtonPlant::class);
+        yield MenuItem::linkToCrud('Bouton pour les Animaux', 'fas fa-list', ButtonAnimal::class);
+        yield MenuItem::linkToCrud('Chemin Animal', 'fas fa-list', CourseAnimal::class);
         
     }
 }

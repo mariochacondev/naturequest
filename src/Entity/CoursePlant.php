@@ -25,15 +25,10 @@ class CoursePlant
     private $title;
 
     /**
-     * @ORM\OneToMany(targetEntity=ButtonPlant::class, mappedBy="coursePlant")
+     * @ORM\OneToMany(targetEntity=ButtonPlant::class, mappedBy="stepId")
      */
-    private $button;
-
-    public function __construct()
-    {
-        $this->buttons = new ArrayCollection();
-        $this->button = new ArrayCollection();
-    }
+    private $buttonPlants;
+   
 
     public function getId(): ?int
     {
@@ -55,31 +50,36 @@ class CoursePlant
     /**
      * @return Collection|ButtonPlant[]
      */
-    public function getButton(): Collection
+    public function getButtonPlants(): Collection
     {
-        return $this->button;
+        return $this->buttonPlants;
     }
 
-    public function addButton(ButtonPlant $button): self
+    public function addButtonPlant(ButtonPlant $buttonPlant): self
     {
-        if (!$this->button->contains($button)) {
-            $this->button[] = $button;
-            $button->setCoursePlant($this);
+        if (!$this->buttonPlants->contains($buttonPlant)) {
+            $this->buttonPlants[] = $buttonPlant;
+            $buttonPlant->setStepId($this);
         }
 
         return $this;
     }
 
-    public function removeButton(ButtonPlant $button): self
+    public function removeButtonPlant(ButtonPlant $buttonPlant): self
     {
-        if ($this->button->removeElement($button)) {
+        if ($this->buttonPlants->removeElement($buttonPlant)) {
             // set the owning side to null (unless already changed)
-            if ($button->getCoursePlant() === $this) {
-                $button->setCoursePlant(null);
+            if ($buttonPlant->getStepId() === $this) {
+                $buttonPlant->setStepId(null);
             }
         }
 
         return $this;
     }
+
+        public function __toString() { 
+         return $this->title; 
+     }
+
 
 }

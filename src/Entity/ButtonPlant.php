@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\ButtonRepository;
+use App\Repository\ButtonPlantRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ButtonRepository::class)
+ * @ORM\Entity(repositoryClass=ButtonPlantRepository::class)
  */
 class ButtonPlant
 {
@@ -33,20 +35,16 @@ class ButtonPlant
     private $finalSheetId;
 
     /**
-     * @ORM\OneToOne(targetEntity=CoursePlant::class, cascade={"persist", "remove"})
-     */
-    private $NextStepId;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=CoursePlant::class, inversedBy="buttons")
+     * @ORM\ManyToOne(targetEntity=CoursePlant::class, inversedBy="buttonPlants")
      * @ORM\JoinColumn(nullable=false)
      */
     private $stepId;
 
     /**
-     * @ORM\ManyToOne(targetEntity=CoursePlant::class, inversedBy="button")
+     * @ORM\OneToOne(targetEntity=CoursePlant::class, cascade={"persist", "remove"})
      */
-    private $coursePlant;
+    private $nextStepId;
+
 
     public function getId(): ?int
     {
@@ -89,19 +87,6 @@ class ButtonPlant
         return $this;
     }
 
-
-    public function getNextStepId(): ?CoursePlant
-    {
-        return $this->NextStepId;
-    }
-
-    public function setNextStepId(?CoursePlant $NextStepId): self
-    {
-        $this->NextStepId = $NextStepId;
-
-        return $this;
-    }
-
     public function getStepId(): ?CoursePlant
     {
         return $this->stepId;
@@ -114,15 +99,21 @@ class ButtonPlant
         return $this;
     }
 
-    public function getCoursePlant(): ?CoursePlant
+    public function getNextStepId(): ?CoursePlant
     {
-        return $this->coursePlant;
+        return $this->nextStepId;
     }
 
-    public function setCoursePlant(?CoursePlant $coursePlant): self
+    public function setNextStepId(?CoursePlant $nextStepId): self
     {
-        $this->coursePlant = $coursePlant;
+        $this->nextStepId = $nextStepId;
 
         return $this;
     }
+
+    // public function __toString() { 
+    //     return $this->stepId; 
+    // }
+
+
 }

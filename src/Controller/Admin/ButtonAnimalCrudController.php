@@ -2,14 +2,14 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\FinalSheetAnimal;
+use App\Entity\ButtonAnimal;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
-class FinalSheetAnimalCrudController extends AbstractCrudController
+class ButtonAnimalCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return FinalSheetAnimal::class;
+        return ButtonAnimal::class;
     }
 
     /*
