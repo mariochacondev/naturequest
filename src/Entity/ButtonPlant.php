@@ -6,9 +6,13 @@ use App\Repository\ButtonPlantRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use DateTime;
 
 /**
  * @ORM\Entity(repositoryClass=ButtonPlantRepository::class)
+ * @Vich\Uploadable
  */
 class ButtonPlant
 {
@@ -25,14 +29,10 @@ class ButtonPlant
     private $content;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @Vich\UploadableField(mapping="buttonplant_images", fileNameProperty="image")
+     * @var File
      */
-    private $img;
-
-    /**
-     * @ORM\OneToOne(targetEntity=FinalSheet::class, cascade={"persist", "remove"})
-     */
-    private $finalSheetId;
+    private $imageFile;
 
     /**
      * @ORM\ManyToOne(targetEntity=CoursePlant::class, inversedBy="buttonPlants")
@@ -40,8 +40,26 @@ class ButtonPlant
      */
     private $stepId;
 
+
     /**
-     * @ORM\OneToOne(targetEntity=CoursePlant::class, cascade={"persist", "remove"})
+     * @ORM\Column(type="datetime", nullable=true)
+     * @var \DateTime
+     */
+    private $updatedAt;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string
+     */
+    private $image;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=FinalSheet::class, inversedBy="buttonPlant")
+     */
+    private $finalSheet;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=CoursePlant::class, inversedBy="buttonPlantsNext")
      */
     private $nextStepId;
 
@@ -63,28 +81,23 @@ class ButtonPlant
         return $this;
     }
 
-    public function getImg(): ?string
+
+    public function setImageFile(File $image = null)
     {
-        return $this->img;
+        $this->imageFile = $image;
+
+        // VERY IMPORTANT:
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+        if ($image) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->updatedAt = new \DateTime('now');
+        }
     }
 
-    public function setImg(string $img): self
+    public function getImageFile()
     {
-        $this->img = $img;
-
-        return $this;
-    }
-
-    public function getFinalSheetId(): ?FinalSheet
-    {
-        return $this->finalSheetId;
-    }
-
-    public function setFinalSheetId(?FinalSheet $finalSheetId): self
-    {
-        $this->finalSheetId = $finalSheetId;
-
-        return $this;
+        return $this->imageFile;
     }
 
     public function getStepId(): ?CoursePlant
@@ -95,6 +108,42 @@ class ButtonPlant
     public function setStepId(?CoursePlant $stepId): self
     {
         $this->stepId = $stepId;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getFinalSheet(): ?FinalSheet
+    {
+        return $this->finalSheet;
+    }
+
+    public function setFinalSheet(?FinalSheet $finalSheet): self
+    {
+        $this->finalSheet = $finalSheet;
 
         return $this;
     }
@@ -110,6 +159,7 @@ class ButtonPlant
 
         return $this;
     }
+
 
 
 }

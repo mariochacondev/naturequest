@@ -9,11 +9,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use App\Entity\FinalSheet;
-use App\Entity\CoursePlan;
+use App\Entity\CoursePlant;
 use App\Entity\ButtonPlant;
 use App\Entity\CourseAnimal;
 use App\Entity\ButtonAnimal;
 use App\Entity\Geolocalisation;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 
 class AdminController extends AbstractDashboardController
 {
@@ -22,27 +23,37 @@ class AdminController extends AbstractDashboardController
      */
     public function index(): Response
     {
-        $routeBuilder = $this->get(AdminUrlGenerator::class);
-
-        return $this->redirect($routeBuilder->setController(CoursePlantCrudController::class)->generateUrl());
-        // return parent::index();
+        
+        return $this->render('app/index_admin.html.twig');
     }
-    
+
+    public function configureAssets(): Assets
+    {
+        return Assets::new()->addCssFile('css/admin.css');
+    }
 
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Naturequest');
+            ->setTitle('<div style="display:flex; align-items:baseline"><img style="width:100px; border-radius:7px" src=".\img\logo-naturschool.png"><h1 style="margin:10px; color:white">NaturQuest de NaturSchool</h1></div>');
     }
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linktoDashboard('Chemin/Page Plant', 'fa fa-list');
-        yield MenuItem::linkToCrud('Chemin/Page Animal', 'fas fa-list', CourseAnimal::class);
-        yield MenuItem::linkToCrud('Bouton pour les Plantes', 'fas fa-list', ButtonPlant::class);
-        yield MenuItem::linkToCrud('Bouton pour les Animaux', 'fas fa-list', ButtonAnimal::class);
-        yield MenuItem::linkToCrud('Fiche Final Animale/Plante', 'fas fa-list', FinalSheet::class);
-        yield MenuItem::linkToCrud('NatureQuest GPS', 'fas fa-list', Geolocalisation::class);
+        return [
+        MenuItem::subMenu('Plant','fas fa-seedling')->setSubItems([
+            MenuItem::linkToCrud('Etape pour les plantes', 'fab fa-discourse', CoursePlant::class),
+            MenuItem::linkToCrud('Bouton pour les plantes', 'fa fa-tags', ButtonPlant::class),
+            ]),
+        
+        MenuItem::subMenu('Animaux','fas fa-paw')->setSubItems([
+            MenuItem::linkToCrud('Etape pour les animaux','fab fa-discourse', CourseAnimal::class),
+            MenuItem::linkToCrud('Boutons pour les aniamux','fa fa-tags', ButtonAnimal::class),
+            ]),
+            MenuItem::linkToCrud('Fiche Final','fas fa-info-circle', FinalSheet::class),
+            MenuItem::linkToCrud('Geolocalisation', 'fas fa-map-marker-alt', Geolocalisation::class),
+            MenuItem::linkToLogout('Deconnexion', 'fa fa-sign-out'),
+        ];
         
     }
 }

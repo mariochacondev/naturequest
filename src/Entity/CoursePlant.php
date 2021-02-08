@@ -28,6 +28,16 @@ class CoursePlant
      * @ORM\OneToMany(targetEntity=ButtonPlant::class, mappedBy="stepId")
      */
     private $buttonPlants;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ButtonPlant::class, mappedBy="nextStepId")
+     */
+    private $buttonPlantsNext;
+
+    public function __construct()
+    {
+        $this->buttonPlantsNext = new ArrayCollection();
+    }
    
 
     public function getId(): ?int
@@ -80,6 +90,36 @@ class CoursePlant
         public function __toString() { 
          return $this->title; 
      }
+
+        /**
+         * @return Collection|ButtonPlant[]
+         */
+        public function getButtonPlantsNext(): Collection
+        {
+            return $this->buttonPlantsNext;
+        }
+
+        public function addButtonPlantsNext(ButtonPlant $buttonPlantsNext): self
+        {
+            if (!$this->buttonPlantsNext->contains($buttonPlantsNext)) {
+                $this->buttonPlantsNext[] = $buttonPlantsNext;
+                $buttonPlantsNext->setNextStepId($this);
+            }
+
+            return $this;
+        }
+
+        public function removeButtonPlantsNext(ButtonPlant $buttonPlantsNext): self
+        {
+            if ($this->buttonPlantsNext->removeElement($buttonPlantsNext)) {
+                // set the owning side to null (unless already changed)
+                if ($buttonPlantsNext->getNextStepId() === $this) {
+                    $buttonPlantsNext->setNextStepId(null);
+                }
+            }
+
+            return $this;
+        }
 
 
 }

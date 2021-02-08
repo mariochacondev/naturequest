@@ -1,0 +1,42 @@
+body {
+    background-color:  #49AC72;
+}
+
+.content-header {
+    border-radius: 10px;
+    padding: 5px;
+    text-align: center;
+}
+.content-header::before {
+    display: none;
+}
+.content-header::after{
+    display: none;
+}
+
+aside {
+    border-radius: 10px;
+}
+
+.main-sidebar {
+    padding:0 20px 0 20px;
+    width: 200px;
+}
+
+.sidebar-menu {
+    width:160px;
+}
+
+.user-name {
+    color:#dedede;
+}
+
+i {
+    color:#dedede;
+}
+
+:root {
+    --font-size-base: 13px;
+    --border-radius: 50px;
+    --body-bg:#A3D05A;
+}
